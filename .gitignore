@@ -2,15 +2,15 @@
 !.gitignore
 
 # code
+!*.cpp
+!*.hpp
 !*.ipynb
 !*.py
 !*.tex
 
 # resource
 !*.CSV
-!*.cpp
 !*.csv
-!*.hpp
 !*.jpeg
 !*.jpg
 !*.json
