@@ -1,0 +1,92 @@
+\documentclass[14pt]{extarticle}
+
+\usepackage[margin=0.5in]{geometry}
+\usepackage{amsmath}
+
+\title{EE-220 Homework 6}
+\author{Jonathan Forhan}
+\date{ }
+
+\renewcommand{\thesubsection}{\thesection-\alph{subsection}}
+
+\begin{document}
+
+\maketitle
+
+\boldmath
+\section{Calculate the amount of volume charge density at the following points in the space,
+  if we know that the electric flux density is $\vec{D}=xyz\vec{a}_x\left[\frac{\mathrm{C}}{\mathrm{m}^2}\right]$.}
+\unboldmath
+
+$$\rho_v=\vec{\nabla}\cdot\vec{D}=\frac{\partial (xyz)}{\partial x}=yz$$
+
+\boldmath
+\subsection{P(2,5,0)}
+\unboldmath
+
+\[
+	\begin{aligned}
+		\rho_v & =yz=5\times0=0                        \\
+		\rho_v & =0\left[\mathrm{C\cdot m}^{-3}\right]
+	\end{aligned}
+\]
+
+\boldmath
+\subsection{Q(1,3,2)}
+\unboldmath
+
+\[
+	\begin{aligned}
+		\rho_v & =yz=3\times2=6                        \\
+		\rho_v & =6\left[\mathrm{C\cdot m}^{-3}\right]
+	\end{aligned}
+\]
+
+\boldmath
+\section{For the following potential distributions, use the gradient equation to find
+  the electric field intensity $\vec{E}$.}
+\unboldmath
+
+\boldmath
+\subsection{$V=2x+y^2z[\mathrm{V}]$}
+\unboldmath
+
+$$\vec{E}=-\nabla V=\frac{\partial V}{\partial x}\vec{a}_x+\frac{\partial V}{\partial y}\vec{a}_y+\frac{\partial V}{\partial z}\vec{a}_z$$
+
+\[
+	\begin{aligned}
+		\vec{E} & =-\left(\frac{\partial (2x+y^2z)}{\partial x}\vec{a}_x+\frac{\partial (2x+y^2z)}{\partial y}\vec{a}_y+\frac{\partial (2x+y^2z)}{\partial z}\vec{a}_z\right) \\
+		\vec{E} & =-\left(2\vec{a}_x+2zy\vec{a}_y+y^2\vec{a}_z\right)                                                                                                         \\
+		\vec{E} & =-2\vec{a}_x-2zy\vec{a}_y-y^2\vec{a}_z\left[\mathrm{V\cdot m^{-1}}\right]
+	\end{aligned}
+\]
+
+\boldmath
+\subsection{$V=\rho^2\sin{\phi}[\mathrm{V}]$}
+\unboldmath
+
+$$\vec{E}=-\nabla V=\frac{\partial V}{\partial \rho}\vec{a}_\rho+\frac{\partial V}{\rho\partial \phi}\vec{a}_\phi+\frac{\partial V}{\partial z}\vec{a}_z$$
+
+\[
+	\begin{aligned}
+		\vec{E} & =-\left(\frac{\partial (\rho^2\sin{\phi})}{\partial \rho}\vec{a}_\rho+\frac{\partial (\rho^2\sin{\phi})}{\rho\partial \phi}\vec{a}_\phi+\frac{\partial (\rho^2\sin{\phi})}{\partial z}\vec{a}_z\right) \\
+		\vec{E} & =-\left(2\rho\sin{\phi}\vec{a}_\rho+\rho\cos{\phi}\vec{a}_\phi+0\vec{a}_z\right)                                                                                                                       \\
+		\vec{E} & =-2\rho\sin{\phi}\vec{a}_\rho-\rho\cos{\phi}\vec{a}_\phi\left[\mathrm{V\cdot m^{-1}}\right]
+	\end{aligned}
+\]
+
+\boldmath
+\subsection{$V=r\sin{\theta}\cos{\phi}[\mathrm{V}]$}
+\unboldmath
+
+$$\vec{E}=-\nabla V=\frac{\partial V}{\partial r}\vec{a}_r+\frac{\partial V}{r\partial \theta}\vec{a}_\theta+\frac{\partial V}{r\sin{\theta}\partial \phi}\vec{a}_\phi$$
+
+\[
+	\begin{aligned}
+		\vec{E} & =-\left(\frac{\partial (r\sin{\theta}\cos{\phi})}{\partial r}\vec{a}_r+\frac{\partial (r\sin{\theta}\cos{\phi})}{r\partial \theta}\vec{a}_\theta+\frac{\partial (r\sin{\theta}\cos{\phi})}{r\sin{\theta}\partial \phi}\vec{a}_\phi\right) \\
+		\vec{E} & =-\left(\sin{\theta}\cos{\phi}\vec{a}_r+\cos{\theta}\cos{\phi}\vec{a}_\theta-\sin{\phi}\vec{a}_\phi\right)                                                                                                                                \\
+		\vec{E} & =-\sin{\theta}\cos{\phi}\vec{a}_r-\cos{\theta}\cos{\phi}\vec{a}_\theta+\sin{\phi}\vec{a}_\phi\left[\mathrm{V\cdot m^{-1}}\right]
+	\end{aligned}
+\]
+
+\end{document}
