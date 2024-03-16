@@ -1,0 +1,132 @@
+\documentclass[14pt]{extarticle}
+
+\usepackage[margin=0.5in]{geometry}
+\usepackage{amsmath}
+\usepackage[none]{hyphenat}
+\usepackage{pgfplots}
+
+\pgfplotsset{compat=newest}
+
+\title{EE-220 Homework 8}
+\author{Jonathan Forhan}
+\date{ }
+
+\renewcommand{\thesubsection}{\thesection-\alph{subsection}}
+
+\begin{document}
+
+\maketitle
+
+\boldmath
+\section{Consider a point-charge $Q_1(0 ,-4 ,0)$ and a point-\\
+  charge $Q_2(0, 4, 0)$, each $2\mathrm{nC}$.}
+\unboldmath
+
+\begin{center}
+	\begin{tikzpicture}
+		\begin{axis}[
+				hide axis,
+				view={120}{15},
+				xmax=4,
+				ymax=4,
+				zmax=4,
+				xmin=-4,
+				ymin=-4,
+				zmin=-4,
+				xlabel=$x$,
+				ylabel=$y$,
+				zlabel=$z$,
+			]
+			\addplot3[color=blue,mark=*,mark size=1] table[row sep=crcr] { 0 0 -10 \\ 0 0 10 \\ };
+			\addplot3[color=green,mark=*,mark size=1] table[row sep=crcr] { 0 -10 0 \\ 0 10 0 \\ };
+			\addplot3[color=red,mark=*,mark size=1] table[row sep=crcr] { -10 0 0 \\ 10 0 0 \\ };
+			\addplot3[mark=*,black,point meta=explicit symbolic,nodes near coords] coordinates {(0,-4,0)[$Q_1(0,-4,0)$]};
+			\addplot3[mark=*,black,point meta=explicit symbolic,nodes near coords] coordinates {(0,4,0)[$Q_2(0,4,0)$]};
+			\addplot3[mark=*,black,point meta=explicit symbolic,nodes near coords] coordinates {(0,0,0)[$$]};
+			\addplot3[mark=*,black,point meta=explicit symbolic,nodes near coords] coordinates {(0,0,4)[$P(0,0,4)$]};
+		\end{axis}
+	\end{tikzpicture}
+\end{center}
+
+\boldmath
+\subsection{Calculate the potential at the origin.}
+\unboldmath
+
+$$V=\frac{Q}{4\pi\epsilon_0 r}$$
+
+$$V=\frac{2\mathrm{nC}}{4\pi\epsilon_0(4)}+\frac{2\mathrm{nC}}{4\pi\epsilon_0(4)}=\frac{1\mathrm{nC}}{4\pi\epsilon_0}=
+	\frac{10^{-9}}{4\pi\frac{10^{-9}}{36\pi}}=9[\mathrm{V}]$$
+
+\boldmath
+\subsection{Calculate the potential at the point P(0,0,4).}
+\unboldmath
+
+$$V=\frac{2\mathrm{nC}}{4\pi\epsilon_0(\sqrt{32})}+\frac{2\mathrm{nC}}{4\pi\epsilon_0(\sqrt{32})}=\frac{4\mathrm{nC}}{16\sqrt{2}\pi\epsilon_0}=
+	\frac{1\mathrm{nC}}{4\sqrt{2}\pi\epsilon_0}=\frac{10^{-9}}{4\sqrt{2}\pi\frac{10^{-9}}{36\pi}}$$
+
+$$V=\frac{9\sqrt{2}}{2}=6.36[\mathrm{V}]$$
+
+\boldmath
+\subsection{What is the voltage of the origin with respect to the point $P,V_{OP}$?}
+\unboldmath
+
+$$V_{OP}=9-6.36=2.64[\mathrm{V}]$$
+
+\boldmath
+\subsection{Calculate the amount of energy required to move a $10\mathrm{nC}$ charge from point P to the origin.}
+\unboldmath
+
+$$W=QV$$
+$$W_{OP}=10nC\cdot 2.64=26.4[\mathrm{nJ}]$$
+
+\boldmath
+\section{The length of each piece of jumper wire in the lab
+  is about 5.0cm. Assuming AWG-20 (wire diameter
+  0.812mm) copper wire with $\sigma=5.8\times10^7\left[\mathrm{S/m}\right]$}
+\unboldmath
+
+\boldmath
+\subsection{Determine the resistance of each jumper wire.}
+\unboldmath
+
+$$\rho = \frac{1}{\sigma}$$
+
+$$\rho = \frac{1}{5.8\times10^7}=5.8\times10^{-7}[\Omega\mathrm{m}]$$
+
+\boldmath
+\subsection{Determine the power dissipated in the wire for 10 mA of current.}
+\unboldmath
+
+$$P=I^2\times R$$
+$$R=\rho L A$$
+$$P=(10\times10^{-3})^2\times\left(5.8 \times 10^{-7}\right)(5^{-2})(\pi \times (0.406^{-3})^2)$$
+$$P=1.627[\mathrm{nW}]$$
+
+\clearpage
+
+\boldmath
+\section{The force measured between a pair of point charges
+  separated by a dielectric material is 20 nN. If the
+  dielectric material is removed without changing
+  the position of the point charges, the force increases
+  to 100 nN.}
+\unboldmath
+
+\boldmath
+\subsection{Calculate the relative permittivity $\epsilon_r$ of the dielectric.}
+\unboldmath
+
+$$F=\frac{1}{\epsilon}\cdot\frac{Q\cdot q}{4\pi d^2}$$
+
+$$F=\frac{1}{\epsilon_0\epsilon_r}\cdot\frac{Q\cdot q}{4\pi d^2}$$
+$$F_0=\frac{1}{\epsilon_0}\cdot\frac{Q\cdot q}{4\pi d^2}$$
+
+\begin{center}
+	$\frac{Q\cdot q}{4\pi d^2}$ cancels.
+\end{center}
+
+$$F=\frac15 F_0\rightarrow\frac{1}{\epsilon_0\epsilon_r}=\frac{1}{5\epsilon_0}\rightarrow\epsilon_r = 5$$
+
+$$\epsilon_r=5$$
+
+\end{document}
