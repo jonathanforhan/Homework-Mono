@@ -1,0 +1,161 @@
+\documentclass[14pt]{extarticle}
+
+\usepackage[margin=0.5in]{geometry}
+\usepackage{amsmath}
+\usepackage[none]{hyphenat}
+\usepackage{pgfplots}
+\usepackage{amssymb}
+\usepackage{multicol}
+
+\pgfplotsset{compat=newest}
+
+\title{EE-220 Homework 10}
+\author{Jonathan Forhan}
+\date{ }
+
+\renewcommand{\thesubsection}{\thesection-\alph{subsection}}
+
+\begin{document}
+
+\maketitle
+
+\boldmath
+\section{Consider a parallel plate capacitor with the \\
+  capacitance of 40nF. If the dielectric between the
+  plates is removed the capacitance drops to 10nF.}
+\unboldmath
+
+\boldmath
+\subsection{Calculate the relative permittivity $\epsilon_r$ of the dieletric.}
+\unboldmath
+
+$$\frac{C_{\mathrm{initial}}}{C_{\mathrm{final}}}=\frac{\epsilon_0\epsilon_r}{\epsilon_0}\Rightarrow\epsilon_r=\frac{40\mathrm{nF}}{10\mathrm{nF}}$$
+$$\epsilon_r=4$$
+
+\boldmath
+\subsection{If the thickness of the dieletric is 0.1mm, calculate the surface of each plate.}
+\unboldmath
+
+$$C=\epsilon\frac{S}{d}\Rightarrow S=d\frac{C}{\epsilon}$$
+
+\begin{align*}
+	S & =100\mathrm{\mu m}\frac{40\mathrm{nF}}{4\times8.854\times10^{-12}} \\
+	S & =112.94\times10^{-3}\mathrm{\left[m^2\right]}
+\end{align*}
+
+\boldmath
+\subsection{If a voltage of 2V is measured between the plates, determine the amount of charge Q on each plate.}
+\unboldmath
+
+$$C=\frac{Q}{V_d}\Rightarrow Q=CV_d$$
+\begin{align*}
+	Q & =40\mathrm{nF}\cdot 2\mathrm{V} \\
+	Q & =80\mathrm{\left[nC\right]}
+\end{align*}
+
+\boldmath
+\section{Find the cross-product $\vec{A}\times\vec{B}$ and $\vec{B}\times\vec{A}$ for the following:}
+\unboldmath
+
+\boldmath
+\subsection{$\vec{A}=2\vec{a}_x-3\vec{a}_y+4\vec{a}_z$, $B=5\vec{a}_y-\vec{a}_z$}
+\unboldmath
+
+\begin{multicols}{2}
+	\begin{center}
+		$$\vec{A}\times\vec{B}$$
+		\[
+			\begin{vmatrix}
+				\vec{a}_x & \vec{a}_y & \vec{a}_z \\
+				2         & -3        & 4         \\
+				0         & 5         & -1        \\
+			\end{vmatrix}
+		\]
+
+		$$(3-20)\vec{a}_x-(-2)\vec{a}_y+(10)\vec{a}_z$$
+		$$\vec{A}\times\vec{B}=-17\vec{a}_x+2\vec{a}_y+10\vec{a}_z$$
+	\end{center}
+	\begin{center}
+		$$\vec{B}\times\vec{A}$$
+		\[
+			\begin{vmatrix}
+				\vec{a}_x & \vec{a}_y & \vec{a}_z \\
+				0         & 5         & -1        \\
+				2         & -3        & 4         \\
+			\end{vmatrix}
+		\]
+
+		$$(20-3)\vec{a}_x-(2)\vec{a}_y+(-10)\vec{a}_z$$
+		$$\vec{B}\times\vec{A}=17\vec{a}_x-2\vec{a}_y-10\vec{a}_z$$
+	\end{center}
+\end{multicols}
+
+\boldmath
+\subsection{$\vec{A}=\vec{a}_\rho+2\vec{a}_\phi+4\vec{a}_z$, $B=2\vec{a}_\rho+6\vec{a}_z$}
+\unboldmath
+
+\begin{multicols}{2}
+	\begin{center}
+		$$\vec{A}\times\vec{B}$$
+		\[
+			\begin{vmatrix}
+				\vec{a}_\rho & \vec{a}_\phi & \vec{a}_z \\
+				1            & 2            & 4         \\
+				2            & 0            & 6         \\
+			\end{vmatrix}
+		\]
+
+		$$(12)\vec{a}_\rho-(6-8)\vec{a}_\phi+(-4)\vec{a}_z$$
+		$$\vec{A}\times\vec{B}=12\vec{a}_\rho+2\vec{a}_\phi-4\vec{a}_z$$
+	\end{center}
+	\begin{center}
+		$$\vec{B}\times\vec{A}$$
+		\[
+			\begin{vmatrix}
+				\vec{a}_\rho & \vec{a}_\phi & \vec{a}_z \\
+				2            & 0            & 6         \\
+				1            & 2            & 4         \\
+			\end{vmatrix}
+		\]
+
+		$$(-12)\vec{a}_\rho-(8-6)\vec{a}_\phi+(4)\vec{a}_z$$
+		$$\vec{B}\times\vec{A}=-12\vec{a}_\rho-2\vec{a}_\phi+4\vec{a}_z$$
+	\end{center}
+\end{multicols}
+
+\clearpage
+
+\boldmath
+\subsection{$\vec{A}=2\vec{a}_r+5\vec{a}_\theta+\vec{a}_\phi$, $B=\vec{a}_r+3\vec{a}_\phi$}
+\unboldmath
+
+\begin{multicols}{2}
+	\begin{center}
+		$$\vec{A}\times\vec{B}$$
+		\[
+			\begin{vmatrix}
+				\vec{a}_\rho & \vec{a}_\theta & \vec{a}_\phi \\
+				2            & 5              & 1            \\
+				1            & 0              & 3            \\
+			\end{vmatrix}
+		\]
+
+		$$(15)\vec{a}_\rho-(6-1)\vec{a}_\theta+(-5)\vec{a}_\phi$$
+		$$\vec{A}\times\vec{B}=15\vec{a}_\rho-5\vec{a}_\theta-5\vec{a}_\phi$$
+	\end{center}
+	\begin{center}
+		$$\vec{B}\times\vec{A}$$
+		\[
+			\begin{vmatrix}
+				\vec{a}_\rho & \vec{a}_\theta & \vec{a}_\phi \\
+				1            & 0              & 3            \\
+				2            & 5              & 1            \\
+			\end{vmatrix}
+		\]
+
+		$$(-15)\vec{a}_\rho-(1-6)\vec{a}_\theta+(5)\vec{a}_\phi$$
+		$$\vec{B}\times\vec{A}=-15\vec{a}_\rho+5\vec{a}_\theta+5\vec{a}_\phi$$
+	\end{center}
+\end{multicols}
+
+\end{document}

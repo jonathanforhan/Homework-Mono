@@ -1,0 +1,99 @@
+\documentclass[14pt]{extarticle}
+
+\usepackage[margin=0.5in]{geometry}
+\usepackage{amsmath}
+\usepackage[none]{hyphenat}
+\usepackage{pgfplots}
+\usepackage{amssymb}
+\usepackage{multicol}
+
+\pgfplotsset{compat=newest}
+
+\title{EE-220 Homework 9}
+\author{Jonathan Forhan}
+\date{ }
+
+\renewcommand{\thesubsection}{\thesection-\alph{subsection}}
+
+\begin{document}
+
+\maketitle
+
+\boldmath
+\section{Consider two blocks of two different materials \\
+  bordering at X-Z plane with no surface charge on
+  the border and $\epsilon_{r1}=0.8$, $\epsilon_{r2}=0.4$.}
+\unboldmath
+
+\boldmath
+\subsection{Calculate the angle vector $\vec{E}_2$ makes with $\vec{a}_y$ knowing that
+	$\vec{E}_1$ makes a $30^\circ$ angle with $\vec{a}_y$.}
+\unboldmath
+
+\begin{multicols}{2}
+	\begin{align*}
+		\rho_s                    = 0 & = \left|\vec{D}_{N1}\right| - \left|\vec{D}_{N2}\right| \\
+		\left|\vec{D}_{N1}\right|     & = \left|\vec{D}_{N2}\right|                             \\
+		\epsilon_{r1}\vec{E}_{N1}     & = \epsilon_{r2}\vec{E}_{N2}                             \\
+		2\vec{E}_{N1}                 & = \vec{E}_{N2}                                          \\
+	\end{align*}
+	\begin{align*}
+		\tan(30)     & = \frac{|E_{T1}|}{|E_{N1}|} = \frac{1}{\sqrt{3}}         \\
+		\vec{E}_{N2} & = 2\vec{E}_{N1} = 2\sqrt{3}                              \\
+		\vec{E}_{T2} & = \vec{E}_{T1} = 1                                       \\
+		\theta       & = \tan^{-1}\left(\frac{1}{2\sqrt{3}}\right) = 16.1^\circ
+	\end{align*}
+\end{multicols}
+
+\boldmath
+\subsection{Calculate the electric flux density in these two regions.}
+\unboldmath
+
+\begin{align*}
+	\vec{D}_1 & = \epsilon\vec{E}_{T1} + \epsilon\vec{E}_{N1} = \epsilon\vec{a}_{T} + \epsilon\sqrt{3}\vec{a}_{N}  \\
+	\vec{D}_1 & = 0.8\epsilon_0\vec{a}_{T} + 0.8\sqrt{3}\epsilon_0\vec{a}_{N}                                      \\
+	\vec{D}_1 & = 7.08\times10^{-12}\vec{a}_{T} + 1.23\times10^{-11}\vec{a}_{N}\mathrm{[C/m^2]}                    \\
+	\\
+	\vec{D}_2 & = \epsilon\vec{E}_{T2} + \epsilon\vec{E}_{N2} = \epsilon\vec{a}_{T} + \epsilon2\sqrt{3}\vec{a}_{N} \\
+	\vec{D}_2 & = 0.4\epsilon_0\vec{a}_{T} + 0.4\cdot2\sqrt{3}\epsilon_0\vec{a}_{N}                                \\
+	\vec{D}_2 & = 3.54\times10^{-12}\vec{a}_{T} + 1.23\times10^{-11}\vec{a}_{N}\mathrm{[C/m^2]}                    \\
+\end{align*}
+
+\boldmath
+\section{The potential field in a material with $\epsilon_r=10.2$ is $V=12xy^2[\mathrm{V}]$.}
+\unboldmath
+
+\boldmath
+\subsection{Calculate $\vec{E}$.}
+\unboldmath
+
+\begin{align*}
+	\vec{E} & = -\nabla V                                                                                                                          \\
+	\vec{E} & = -\left(\frac{\partial V}{\partial x}\vec{a}_x+\frac{\partial V}{\partial y}\vec{a}_y+\frac{\partial V}{\partial z}\vec{a}_z\right) \\
+	\vec{E} & = -\left(12y^2\vec{a}_x+24xy\vec{a}_y\right)                                                                                         \\
+	\vec{E} & = -12y^2\vec{a}_x-24xy\vec{a}_y\mathrm{[V/m]}                                                                                        \\
+\end{align*}
+
+\boldmath
+\subsection{Calculate $\vec{D}$.}
+\unboldmath
+
+\begin{align*}
+	\vec{D} & = \epsilon \vec{E}                                                                                      \\
+	\vec{D} & = \epsilon\left(-12y^2\vec{a}_x-24xy\vec{a}_y\right)                                                    \\
+	\vec{D} & = 10.2\epsilon_0\left(-12y^2\vec{a}_x-24xy\vec{a}_y\right)                                              \\
+	\vec{D} & = -\left(1.08\times10^{-9}\right)y^2\vec{a}_x-\left(2.17\times10^{-9}\right)xy\vec{a}_y\mathrm{[C/m^2]} \\
+\end{align*}
+
+\boldmath
+\subsection{Calculate $\vec{P}$.}
+\unboldmath
+
+\begin{align*}
+	\vec{P} & = \chi_e\epsilon_0\vec{E}                                                                              \\
+	\vec{P} & = (\epsilon_r-1)\epsilon_0\vec{E}                                                                      \\
+	\vec{P} & = (9.2)\epsilon_0\vec{E}                                                                               \\
+	\vec{P} & = -\left(9.78\times10^{-10}\right)\vec{a}_x - \left(1.96\times10^{-9}\right)\vec{a}_y \mathrm{[C/m^2]} \\
+\end{align*}
+
+\end{document}
