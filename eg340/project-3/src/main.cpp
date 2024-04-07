@@ -1,95 +1,58 @@
-#include <atomic>
-#include <cstdint>
+/// @file main.cpp
+/// @brief run the channel tests, meant to be piped from stdout to csv file
+
 #include <iostream>
-#include <thread>
-#include <vector>
-#include "rx.hpp"
-#include "tx.hpp"
-#include "util.hpp"
+#include <string>
+#include "Channel.hpp"
 
-#define ITERATIONS_PER_THREAD 4'451'368 /* Size of one bible */
-#define THREAD_COUNT 64
+#define SCHEMA                                                                                                      \
+    "noise", "transmissions", "retransmissions", "good-true", "good-false", "bad-true", "bad-false", "first-tries", \
+        "catches", "tx-errors", "rx-errors"
 
-std::atomic_uint transmissions = 0;
-std::atomic_uint errors = 0;
-std::atomic_uint catches = 0;
+/// @brief QOL csv to stdout
+/// @param e element
+void csv(auto e) {
+    std::cout << e << '\n';
+}
 
-void broadcast(uint32_t prob_error) {
-    auto tx = Transmitter("res/bible.txt");
-    auto rx = Receiver();
+/// @brief QOL csv to stdout (recursive)
+/// @param e element
+/// @param rest rest of args, for packing
+void csv(auto e, auto... rest) {
+    std::cout << e << ',';
+    csv(rest...);
+}
 
-    uint32_t local_transmissions = 0;
-    uint32_t local_errors = 0;
-    uint32_t local_catches = 0;
+/// @brief run channel transmission and run export tracker
+/// @param i iteration
+/// @param export_fn export function, takes tracker as param
+void broadcast(int i, auto export_fn) {
+    Transmitter tx("res/test.txt");
+    Receiver rx(std::string("output_") + std::to_string(i) + ".txt", true);
+    Channel ch(i);
 
-    std::vector<uint32_t> hash_cache;
-    hash_cache.reserve(CACHE_SIZE);
-
-    for (int i = 0; i < ITERATIONS_PER_THREAD; i++) {
-        tx.read_packet();
-
-        const Packet& ideal_packet = tx.transmit();
-        bool error_in_scope = false;
-        Packet packet;
-
-        do {
-            local_transmissions++;
-            bool error_this_iter = false;
-
-            if (hash_cache.size() < 2) {
-                for (int i = 0; i < CACHE_SIZE; i++)
-                    hash_cache.emplace_back(pcg_hash() % 100);
-            }
-
-            packet = tx.transmit();
-            scramble(packet, prob_error, hash_cache.back());
-            hash_cache.pop_back();
-
-            if (packet != ideal_packet) {
-                error_in_scope = true;
-                error_this_iter = true;
-            }
-
-            rx.receive(packet);
-            scramble(packet, prob_error, hash_cache.back());
-            hash_cache.pop_back();
-
-            if (static_cast<char>(packet.to_ulong()) != static_cast<char>(ideal_packet.to_ulong())) {
-                error_in_scope = true;
-                error_this_iter = true;
-            }
-
-            tx.receive(packet);
-
-            local_errors += static_cast<uint32_t>(error_this_iter);
-        } while (tx.transmitting());
-
-        if (error_in_scope && static_cast<char>(packet.to_ulong()) == static_cast<char>(ideal_packet.to_ulong())) {
-            local_catches++;
-        }
-    }
-
-    transmissions += local_transmissions;
-    errors += local_errors;
-    catches += local_catches;
+    ch.communicate(tx, rx);
+    export_fn(ch.tracker);
 }
 
 int main() {
-    for (int err = 0; err < 101; err += 10) {
-        std::cout << "Error: " << err << "%\n";
-        std::vector<std::thread> threads;
+    csv(SCHEMA);
 
-        for (int i = 0; i < THREAD_COUNT; i++)
-            threads.emplace_back(broadcast, err);
-
-        for (auto& thread : threads)
-            thread.join();
-
-        std::cout << "Total Bytes Transmitted: " << THREAD_COUNT * ITERATIONS_PER_THREAD << '\n';
-        std::cout << "Total Transmissions: " << transmissions << '\n';
-        std::cout << "Total Retransmissions: " << (transmissions - ITERATIONS_PER_THREAD * THREAD_COUNT) << '\n';
-        std::cout << "Total Incorrect Transmissions: " << errors << '\n';
-        std::cout << "Total Corrected Transmissions: " << catches << '\n';
-        std::cout << '\n';
+    for (int i = 0; i <= 50; i += 1) {
+        broadcast(i, [](const PerfLog& tracker) {
+            csv(tracker.noise,
+                tracker.transmissions,
+                tracker.retransmissions,
+                tracker.good_true,
+                tracker.good_false,
+                tracker.bad_true,
+                tracker.bad_false,
+                tracker.first_tries,
+                tracker.catches,
+                tracker.tx_errors,
+                tracker.rx_errors);
+        });
     }
+
+    return 0;
 }
