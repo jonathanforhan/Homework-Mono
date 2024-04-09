@@ -29,7 +29,7 @@ public:
 
     /// @brief describes state of transmission, EOT is end of transmission
     /// @return state of transmission
-    constexpr bool eot() const { return !_fin; }
+    bool eot() const { return !_fin; }
 
 private:
     std::ifstream _fin;

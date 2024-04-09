@@ -17,7 +17,7 @@ public:
     /// @param write should write to file?
     Receiver(const std::filesystem::path& file_name, bool write = false) {
         if (write)
-            _fout = {file_name};
+            _fout = std::ofstream(file_name);
     }
 
     /// @brief receive a packet from the channel
