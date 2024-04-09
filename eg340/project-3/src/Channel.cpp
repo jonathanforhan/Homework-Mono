@@ -18,7 +18,7 @@ void Channel::communicate(Transmitter& tx, Receiver& rx) {
         bool good, accepted;
 
         do {
-            Packet noisy_pkt = scramble(pkt, _n);
+            Packet noisy_pkt = scramble(pkt);
             std::optional<Packet> res = rx.receive(noisy_pkt);
 
             // record tracker data
@@ -34,7 +34,7 @@ void Channel::communicate(Transmitter& tx, Receiver& rx) {
             // tx rx ack errors
             tracker.tx_errors += noisy_pkt[Packet::ACKBIT];
             if (!accepted) {
-                Packet noisy_res = scramble(*res, _n);
+                Packet noisy_res = scramble(*res);
                 tracker.rx_errors += !noisy_res[Packet::ACKBIT];
             }
 
@@ -49,10 +49,10 @@ void Channel::communicate(Transmitter& tx, Receiver& rx) {
     }
 }
 
-Packet Channel::scramble(Packet pkt, uint32_t n) {
+Packet Channel::scramble(Packet pkt) {
     // apply noise to packet
     for (uint32_t i = 0; i < pkt.size(); i++) {
-        if (dist(mt) < n)
+        if (dist(mt) < _n)
             pkt.flip(i);
     }
 

@@ -1,5 +1,8 @@
 #pragma once
 
+/// @file Packet.hpp
+/// @brief Wrapper around std::bitset<10>, representing our 10-bit packet
+
 #include <bitset>
 
 /// @brief 10-bit packet
@@ -10,11 +13,11 @@ struct Packet : public std::bitset<10> {
     explicit Packet(auto c)
         : std::bitset<10>(c) {}
 
-    /// @brief set checksum bit using parent set() method
+    /// @brief set checksum bit using parent std::bitset::set() method
     /// @param b boolean
     void set_chkbit(bool b = true) { this->set(CHKBIT, b); }
 
-    /// @brief set ack bit using parent set() method
+    /// @brief set ack bit using parent std::bitset::set() method
     /// @param b boolean
     void set_ackbit(bool b = true) { this->set(ACKBIT, b); }
 
@@ -25,7 +28,7 @@ struct Packet : public std::bitset<10> {
     /// @brief calculates checksum from first 8 bits
     /// @param pkt packet to calc
     /// @return checksum bit state (0|1)
-    static bool checksum(const Packet& pkt) noexcept {
+    static bool checksum(const Packet& pkt) {
         uint8_t byte = static_cast<uint8_t>(pkt.to_ulong());
         byte ^= byte >> 4;
         byte ^= byte >> 2;

@@ -15,9 +15,8 @@ public:
     /// @brief creates receiver and opens output file
     /// @param file_name desired name out output file
     /// @param write should write to file?
-    Receiver(const std::filesystem::path& file_name, bool write = false)
-        : _write(write) {
-        if (_write)
+    Receiver(const std::filesystem::path& file_name, bool write = false) {
+        if (write)
             _fout = {file_name};
     }
 
@@ -30,13 +29,12 @@ public:
             return pkt;
         }
 
-        if (_write)
-            _fout << pkt.to_char();
+        if (_fout)
+            *_fout << pkt.to_char();
 
         return std::nullopt;
     }
 
 private:
-    std::ofstream _fout;
-    bool _write;
+    std::optional<std::ofstream> _fout;
 };

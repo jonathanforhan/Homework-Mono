@@ -12,13 +12,13 @@
     "noise", "transmissions", "retransmissions", "good-true", "good-false", "bad-true", "bad-false", "first-tries", \
         "catches", "tx-errors", "rx-errors"
 
-/// @brief QOL csv to stdout
+/// @brief csv to stdout
 /// @param e element
 void csv(auto e) {
     std::cout << e << '\n';
 }
 
-/// @brief QOL csv to stdout (recursive)
+/// @brief csv to stdout (recursive)
 /// @param e element
 /// @param rest rest of args, for packing
 void csv(auto e, auto... rest) {
@@ -28,7 +28,8 @@ void csv(auto e, auto... rest) {
 
 /// @brief run channel transmission and run export tracker
 /// @param i iteration
-void broadcast(int i, std::promise<PerfLog>&& promise) {
+/// @param promise promise channel to write to
+void broadcast(uint32_t i, std::promise<PerfLog>&& promise) {
     Transmitter tx("res/bible.txt");
     Receiver rx(std::string("output_") + std::to_string(i) + ".txt");
     Channel ch(i);
@@ -41,13 +42,13 @@ int main() {
     std::vector<std::future<PerfLog>> futures;
     std::vector<std::thread> threads;
 
-    csv(SCHEMA);
-
-    for (int i = 0; i <= 50; i += 1) {
+    for (auto i = 0; i <= 50; i += 1) {
         std::promise<PerfLog> promise;
         futures.emplace_back(promise.get_future());
-        threads.emplace_back(std::thread(broadcast, i, std::move(promise)));
+        threads.emplace_back(std::thread(broadcast, i, std::move(promise))).detach();
     }
+
+    csv(SCHEMA);
 
     for (auto& future : futures) {
         auto tracker = future.get();
@@ -62,10 +63,6 @@ int main() {
             tracker.catches,
             tracker.tx_errors,
             tracker.rx_errors);
-    }
-
-    for (auto& thread : threads) {
-        thread.join();
     }
 
     return 0;
