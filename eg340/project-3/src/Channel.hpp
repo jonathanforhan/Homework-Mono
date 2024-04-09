@@ -9,7 +9,7 @@
 
 /// @brief performance tracker
 struct PerfLog {
-    uint64_t noise = 0;
+    uint64_t noise = 0;           /// % noise
     uint64_t transmissions = 0;   /// total transmissions
     uint64_t retransmissions = 0; /// total retramissions
     uint64_t good_true = 0;       /// good signal accepted
@@ -24,14 +24,13 @@ struct PerfLog {
 
 /// @brief Channel that applies noise between the communication of tx and rx
 /// Channel also records data of if transmissions are successful
-/// @tparam N percent noise
 class Channel {
 public:
     explicit Channel(uint32_t n)
         : _n(n) {}
 
     /// @brief initate communication over channel
-    /// @param tc transmitter with valid file
+    /// @param tx transmitter with valid file
     /// @param rx receiver with valid file
     void communicate(Transmitter& tx, Receiver& rx);
 
@@ -40,11 +39,11 @@ public:
 
 public:
     /// @brief track for channel performance data
-    /// recorded on ```communicate``` method
+    /// recorded on Channel::communicate method
     PerfLog tracker;
 
 private:
-    Packet scramble(Packet pkt, uint32_t n) noexcept;
+    Packet scramble(Packet pkt, uint32_t n);
 
 private:
     uint32_t _n;

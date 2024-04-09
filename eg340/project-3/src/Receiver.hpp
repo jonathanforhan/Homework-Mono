@@ -24,7 +24,17 @@ public:
     /// @brief receive a packet from the channel
     /// @param pkt
     /// @return returns a packet with ack=1 indicating retransmit request OR nullopt, an implicit handshake
-    std::optional<Packet> receive(Packet pkt);
+    std::optional<Packet> receive(Packet pkt) {
+        if (pkt[Packet::CHKBIT] != Packet::checksum(pkt)) {
+            pkt.set_ackbit();
+            return pkt;
+        }
+
+        if (_write)
+            _fout << pkt.to_char();
+
+        return std::nullopt;
+    }
 
 private:
     std::ofstream _fout;

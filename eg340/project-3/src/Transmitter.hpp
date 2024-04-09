@@ -16,11 +16,16 @@ public:
 
     /// @brief transmit next char in stored file
     /// @return packet with proper checksum and ack bit set to zero, no noise appied yet
-    Packet transmit();
+    Packet transmit() {
+        char c;
+        _file.get(c);
 
-    /// @brief retransmit current stored character
-    /// @return packet with proper checksum and ack bit set to zero, no noise appied yet
-    Packet retransmit();
+        Packet pkt(c);
+        pkt.set_chkbit(Packet::checksum(pkt));
+
+        _eot = !_file;
+        return pkt;
+    }
 
     /// @brief describes state of transmission, EOT is end of transmission
     /// @return state of eot
@@ -28,6 +33,5 @@ public:
 
 private:
     std::ifstream _file;
-    char _current_char = '\0';
     bool _eot = false;
 };

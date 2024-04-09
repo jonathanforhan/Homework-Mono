@@ -2,10 +2,9 @@
 
 #include <random>
 
-// rng
-static std::random_device rd;
-static std::mt19937 mt(rd());
-static std::uniform_int_distribution<uint32_t> dist(0, 100);
+static thread_local std::random_device rd;
+static thread_local std::mt19937 mt(rd());
+static thread_local std::uniform_int_distribution<uint32_t> dist(0, 100);
 
 void Channel::communicate(Transmitter& tx, Receiver& rx) {
     tracker.noise = _n;
@@ -50,7 +49,7 @@ void Channel::communicate(Transmitter& tx, Receiver& rx) {
     }
 }
 
-Packet Channel::scramble(Packet pkt, uint32_t n) noexcept {
+Packet Channel::scramble(Packet pkt, uint32_t n) {
     // apply noise to packet
     for (uint32_t i = 0; i < pkt.size(); i++) {
         if (dist(mt) < n)

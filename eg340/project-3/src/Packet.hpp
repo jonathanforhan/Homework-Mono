@@ -7,6 +7,9 @@ struct Packet : public std::bitset<10> {
     static constexpr std::size_t CHKBIT = 8; ///< checksum bit index
     static constexpr std::size_t ACKBIT = 9; ///< ack bit index
 
+    explicit Packet(auto c)
+        : std::bitset<10>(c) {}
+
     /// @brief set checksum bit using parent set() method
     /// @param b boolean
     void set_chkbit(bool b = true) { this->set(CHKBIT, b); }
@@ -27,6 +30,6 @@ struct Packet : public std::bitset<10> {
         byte ^= byte >> 4;
         byte ^= byte >> 2;
         byte ^= byte >> 1;
-        return byte & 1;
+        return byte;
     }
 };
